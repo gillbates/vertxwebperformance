@@ -1,6 +1,6 @@
 # vertx web performance issues
 
-## 1 request handler inputs not stable 
+## 1 request handler called not stable
 
 ### Version
 
@@ -117,7 +117,7 @@ From server log, we found that:
 
 So I doubt why is this request delayed? Is it because its single thread of the eventloop for this WebServer?
 
-## 2 request handler inputs not stable
+## 2 increased response time for concurrent requests
 
 ### Context
 
@@ -219,4 +219,4 @@ client log
 
 4, when we compare this result to sequential requests in first issue. We found that its strange that response time rises from 3s to 300s on average while server handler does nothing special.
 
-So I doubt why is this request time increase? Is it because its single thread of the eventloop for this WebServer?
+*So I doubt why is this request time increase? Is it because its single thread of the eventloop for this WebServer?
