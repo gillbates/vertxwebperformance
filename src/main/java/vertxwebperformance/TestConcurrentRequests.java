@@ -12,7 +12,7 @@ public class TestConcurrentRequests {
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx();
         Future<Void> future = Future.succeededFuture();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             int finalI = i;
             HttpClient httpClient = vertx.createHttpClient();
             Future<HttpClientResponse> f = Future.future();
