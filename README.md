@@ -4,7 +4,7 @@
 
 ### Version
 
-vertx 3.9+ (earlier versions not tested ...)
+vertx 3.6, 3.9+ (earlier versions not tested ...)
 Java 8,11,13
 
 ### Context
