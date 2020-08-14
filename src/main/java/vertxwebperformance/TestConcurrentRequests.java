@@ -13,12 +13,13 @@ public class TestConcurrentRequests {
         Vertx vertx = Vertx.vertx();
 
         for (int i = 0; i < 10; i++) {
-            long start = System.currentTimeMillis();
+
             int finalI = i;
             HttpClient httpClient = vertx.createHttpClient();
             Future<HttpClientResponse> f = Future.future();
             HttpClientRequest abs = httpClient.getAbs("http://127.0.0.1:" + Server.PORT + "/api?id=" + i, f::complete);
             abs.exceptionHandler(f::fail);
+            long start = System.currentTimeMillis();
             abs.end();
             log.debug("[{}] request sent ... ", finalI);
             f.setHandler(res -> {
