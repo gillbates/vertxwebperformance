@@ -23,7 +23,7 @@ repositories {
 ext {
     slf4jVersion = "1.7.25"
     logbackVersion = "1.1.7"
-    vertxVersion = "3.9.0"
+    vertxVersion = "3.9.2"
     lombokVersion = "1.18.6"
 }
 
