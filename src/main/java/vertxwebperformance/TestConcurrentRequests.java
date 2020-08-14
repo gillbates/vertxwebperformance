@@ -11,8 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 public class TestConcurrentRequests {
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx();
-        Future<Void> future = Future.succeededFuture();
+
         for (int i = 0; i < 10; i++) {
+            long start = System.currentTimeMillis();
             int finalI = i;
             HttpClient httpClient = vertx.createHttpClient();
             Future<HttpClientResponse> f = Future.future();
@@ -20,7 +21,6 @@ public class TestConcurrentRequests {
             abs.exceptionHandler(f::fail);
             abs.end();
             log.debug("[{}] request sent ... ", finalI);
-            long start = System.currentTimeMillis();
             f.setHandler(res -> {
                 if (res.succeeded()) {
                     log.debug("[{}] used time {}", finalI, System.currentTimeMillis() - start);
