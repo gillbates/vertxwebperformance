@@ -13,7 +13,7 @@ import java.util.List;
 
 @Slf4j
 public class TestConcurrentRequests {
-    static long start = System.currentTimeMillis();
+    private static long start = System.currentTimeMillis();
     static long firstResponseTime = 0;
 
     public static void main(String[] args) {
@@ -28,9 +28,10 @@ public class TestConcurrentRequests {
             Future<HttpClientResponse> future = Future.future();
             list.add(future);
             int finalI = i;
+            long thisStart = System.currentTimeMillis();
             abs[i] = httpClient.getAbs("http://127.0.0.1:" + Server.PORT + "/api?id=" + i, response -> {
                 if (response.statusCode() == 200) {
-                    log.debug("[{}] used time {}", finalI, System.currentTimeMillis() - start);
+                    log.debug("[{}] used time {}ms, total {} ms ... ", finalI, System.currentTimeMillis() - thisStart, System.currentTimeMillis() - start);
                 } else {
                     log.debug("[{}] error", finalI);
                 }
