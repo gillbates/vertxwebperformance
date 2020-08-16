@@ -12,6 +12,8 @@ public class TestSequentialRequests {
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx();
         Future<Void> future = Future.succeededFuture();
+
+        long firstStart = System.currentTimeMillis();
         for (int i = 0; i < 10; i++) {
             int finalI = i;
             HttpClient httpClient = vertx.createHttpClient();
@@ -26,8 +28,12 @@ public class TestSequentialRequests {
                 f.setHandler(res -> {
                     if (res.succeeded()) {
                         ff.complete();
-                        log.debug("[{}] used time {}} ", finalI, System.currentTimeMillis() - start);
+                        long total = System.currentTimeMillis() - firstStart;
+                        log.debug("[{}] used time {}ms, total {} ms ... ", finalI, System.currentTimeMillis() - start, System.currentTimeMillis() - firstStart);
+
+
                     } else {
+
                         ff.fail(res.cause());
                         log.debug("[{}] error ", finalI, res.cause());
                     }

@@ -20,7 +20,7 @@ public class TestConcurrentRequests {
         Vertx vertx = Vertx.vertx();
         HttpClient httpClient = vertx.createHttpClient();
 
-        int count = 10000;
+        int count = 10;
         List<Future> list = new ArrayList();
 
         HttpClientRequest[] abs = new HttpClientRequest[count];

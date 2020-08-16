@@ -15,6 +15,7 @@ public class Server {
         httpServer.requestHandler(r -> {
             String id = r.getParam("id");
             log.debug("id:{}", id);
+            Util.timeConsumer();
             r.response().end();
         });
         httpServer.listen(PORT, r -> {
