@@ -11,12 +11,14 @@ public class EnhancedServer {
     public static int PORT = 8000;
 
     public static void main(String[] args) {
+        int cores = Runtime.getRuntime().availableProcessors();
+        log.debug("{} cores found ...", cores);
         VertxOptions options = new VertxOptions();
-        options.setEventLoopPoolSize(8);
+//        options.setEventLoopPoolSize(cores * 2);
         Vertx vertx = Vertx.vertx(options); // (1)
 
         DeploymentOptions depOps = new DeploymentOptions();
-        depOps.setInstances(8);
+        depOps.setInstances(cores);
         vertx.deployVerticle(HttpVerticle.class, depOps, ar -> { // (2)
             if (ar.succeeded()) {
                 log.debug("done deployment");

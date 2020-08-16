@@ -4,6 +4,7 @@ import io.vertx.core.CompositeFuture;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpClient;
+import io.vertx.core.http.HttpClientOptions;
 import io.vertx.core.http.HttpClientRequest;
 import io.vertx.core.http.HttpClientResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -18,9 +19,17 @@ public class TestConcurrentRequests {
 
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx();
-        HttpClient httpClient = vertx.createHttpClient();
 
-        int count = 10;
+        HttpClientOptions options = new HttpClientOptions()
+                .setKeepAlive(true)
+                .setConnectTimeout(1000)
+                .setIdleTimeout(10)
+                .setMaxWaitQueueSize(500) // (0)
+                .setMaxPoolSize(1000); // (1)
+
+        HttpClient httpClient = vertx.createHttpClient(options);
+
+        int count = 1000;
         List<Future> list = new ArrayList();
 
         HttpClientRequest[] abs = new HttpClientRequest[count];
